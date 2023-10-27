@@ -9,7 +9,7 @@ import axios from "axios";
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-export default function CreateCheckList({ idCard, setCheckLists }) {
+export default function CreateCheckList({ idCard, setCheckLists, dispatch }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [checklistName, setCheckListName] = useState("");
 
@@ -29,8 +29,9 @@ export default function CreateCheckList({ idCard, setCheckLists }) {
         }
       )
       .then((response) => {
+        dispatch({ type: "ADD_CHECKLIST", payload: response.data });
         console.log(response.data);
-        setCheckLists((preCheckLists) => [...preCheckLists, response.data]);
+        // setCheckLists((preCheckLists) => [...preCheckLists, response.data]);
         setCheckListName("");
       });
     handleClose();

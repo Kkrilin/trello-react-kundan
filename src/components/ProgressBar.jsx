@@ -27,19 +27,16 @@ LinearProgressWithLabel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function ProgressBar({ checkList }) {
+export default function ProgressBar({ checklist }) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    let lengthCheckItem = checkList.checkItems.length;
-    let lengthCompleteCheckitem = checkList.checkItems.filter(
+    let lengthCheckItem = checklist.checkItems.length;
+    let lengthCompleteCheckitem = checklist.checkItems.filter(
       (checkitem) => checkitem.state === "complete"
     ).length;
     setProgress(() => (lengthCompleteCheckitem / lengthCheckItem) * 100);
-    
-    console.log(progress);
-  }, [checkList]);
-
+  }, [checklist]);
 
   return (
     <Box sx={{ width: "100%" }}>

@@ -9,10 +9,9 @@ import { Checklist } from "@mui/icons-material";
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-const Checkitems = ({ setCheckList, checkitem, idCard }) => {
+const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
   const handleCheckItemChange = (e) => {
     const checkItemState = e.target.checked ? "complete" : "incomplete";
-    // console.log(e.target.checked);
     axios
       .put(
         `https://api.trello.com/1/cards/${idCard}/checkItem/${checkitem.id}?key=${ApiKey}&token=${token}`,
@@ -21,13 +20,9 @@ const Checkitems = ({ setCheckList, checkitem, idCard }) => {
         }
       )
       .then((response) => {
-        setCheckList((preChecklist) => {
-          const newCheckItem = preChecklist.checkItems.map((checkitem) =>
-            checkitem.id === response.data.id ? response.data : checkitem
-          );
-          //   console.log("p triggered");
-          return { ...preChecklist, checkItems: newCheckItem };
-        });
+        dispatch({ type: "CHECK_CHECKITEM", payload: response.data });
+        console.log(response.data)
+        console.log(response.data);
       });
   };
 
@@ -37,18 +32,8 @@ const Checkitems = ({ setCheckList, checkitem, idCard }) => {
         `https://api.trello.com/1/cards/${idCard}/checkItem/${checkitem.id}?key=${ApiKey}&token=${token}`
       )
       .then((response) => {
-        setCheckList((preChecklist) => {
-          const newCheckItems = preChecklist.checkItems.filter((x, index) => {
-            console.log(index, x.id);
-            console.log(index, checkitem.id);
-            return x.id !== checkitem.id;
-          });
-          console.log("p triggered", newCheckItems);
-          return { ...preChecklist, checkItems: newCheckItems };
-        });
-        // console.log(response);
+        dispatch({ type: "DELETE_ITEM", payload: checkitem });
       });
-    // console.log("delete");
   };
   return (
     <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -71,4 +56,4 @@ const Checkitems = ({ setCheckList, checkitem, idCard }) => {
   );
 };
 
-export default Checkitems;
+export default Checkitem;

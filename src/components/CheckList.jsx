@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -9,21 +9,15 @@ import ProgressBar from "./ProgressBar";
 import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Checkitems from "./Checkitems";
+import Checkitem from "./Checkitem";
 import axios from "axios";
 
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-const CheckList = ({
-  checkLists,
-  checklist,
-  idCard,
-  setCheckLists,
-  idChecklist,
-}) => {
-  const [checkList, setCheckList] = useState(checklist);
+const CheckList = ({ checkLists,checklist, idCard, dispatch }) => {
   const [checkItemName, setCheckItemName] = useState("");
+
   const handleDeleteChecklist = () => {
     axios
       .delete(
@@ -31,22 +25,18 @@ const CheckList = ({
       )
       .then((response) => {
         console.log(response.data);
-        setCheckLists(() => response.data);
+        dispatch({ type: "DELETE_CHECKLIST", payload: response.data });
       });
   };
 
   const handleAddCheckItem = () => {
     axios
       .post(
-        `https://api.trello.com/1/checklists/${checkList.id}/checkItems?name=${checkItemName}&key=${ApiKey}&token=${token}`
+        `https://api.trello.com/1/checklists/${checklist.id}/checkItems?name=${checkItemName}&key=${ApiKey}&token=${token}`
       )
       .then((response) => {
-        console.log(response);
-        setCheckList((preChecklist) => {
-          const newCheckItem = [...preChecklist.checkItems, response.data];
-          return { ...preChecklist, checkItems: newCheckItem };
-        });
-        setCheckItemName("");
+        console.log(response.data);
+        dispatch({ type: "ADD_CHECKITEM", payload: response.data });
       });
     console.log(checkItemName);
   };
@@ -65,23 +55,22 @@ const CheckList = ({
         ></Button>
       </Box>
       <FormGroup>
-        {checkList.checkItems.length !== 0 && (
-          <ProgressBar checkList={checkList} />
+        {checklist.checkItems.length !== 0 && (
+          <ProgressBar checkLists={checkLists} checklist={checklist} />
         )}
 
-        {checkList.checkItems.map((checkitem) => (
-          <Checkitems
-            setCheckList={setCheckList}
-            checkList={checkList}
+        {checklist.checkItems.map((checkitem) => (
+          <Checkitem
+          checklist={checklist}
             idCard={idCard}
             key={checkitem.id}
             checkitem={checkitem}
+            dispatch={dispatch}
           />
         ))}
       </FormGroup>
       <Stack direction={"row"}>
         <TextField
-        
           sx={{ marginBottom: "1rem", marginTop: "0.5rem" }}
           onChange={(e) => setCheckItemName(e.target.value)}
           value={checkItemName}

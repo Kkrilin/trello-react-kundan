@@ -1,40 +1,41 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import CheckList from "./CheckList";
 import CreateCheckList from "./CreateCheckList";
 import { Typography } from "@mui/material";
+import { initialState } from "../reducer/checkListReducer";
+import checkListReducer from "../reducer/checkListReducer";
 
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-const Checklists = ({ Card,list }) => {
-  const [checkLists, setCheckLists] = useState([]);
-
+const Checklists = ({ Card, list }) => {
+  const [state, dispatch] = useReducer(checkListReducer, initialState);
   useEffect(() => {
     axios
       .get(
         `https://api.trello.com/1/cards/${Card.id}/checklists?key=${ApiKey}&token=${token}`
       )
       .then((response) => {
-        setCheckLists(() => response.data);
-        // console.log(response.data);
+        dispatch({ type: "FETCH_CHECKLISTS", payload: response.data });
       });
-  }, []);
-
+    }, []);
+    
+  console.log();
   return (
     <>
-    <Typography>{`${Card.name} in List ${list.name}`}</Typography>
-      {checkLists.map((checklist) => (
+      <Typography>{`${Card.name} in List ${list.name}`}</Typography>
+      {state.checkLists.map((checklist) => (
         <CheckList
-          checkLists={checkLists}
+          checkLists={state.checkLists}
           idChecklist={checklist.id}
           key={checklist.id}
-          setCheckLists={setCheckLists}
+          dispatch={dispatch}
           idCard={Card.id}
           checklist={checklist}
         />
       ))}
-      <CreateCheckList idCard={Card.id} setCheckLists={setCheckLists} />
+      <CreateCheckList dispatch={dispatch} idCard={Card.id} />
     </>
   );
 };
