@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import BoardCard from "../components/BoardCard";
 import { Box } from "@mui/material";
@@ -12,13 +11,12 @@ const memberID = import.meta.env.VITE_MEMBER_ID;
 const Boards = () => {
   const [boards, setBoards] = useState([]);
   useEffect(() => {
-    document.title='Trello'
+    document.title = "Trello";
     axios
       .get(
         `https://api.trello.com/1/members/${memberID}/boards?key=${ApiKey}&token=${token}`
       )
       .then((response) => setBoards(response.data));
-
   }, []);
 
   return (

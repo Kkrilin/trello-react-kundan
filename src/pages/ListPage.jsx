@@ -14,7 +14,7 @@ function ListPage() {
   const {
     state: { boardName },
   } = useLocation();
-  // console.log(boardName);
+
   useEffect(() => {
     document.title = boardName;
     axios
@@ -22,16 +22,14 @@ function ListPage() {
         `https://api.trello.com/1/boards/${boardId}/lists?key=${ApiKey}&token=${token}`
       )
       .then((response) => {
-        // console.log(response);
         setLists(response.data);
       });
   }, []);
 
-  // console.log(boardId);
   return (
     <>
       <Typography sx={{ textAlign: "center" }} color="white" variant="h4">
-       Lists In Board: {boardName}
+        Lists In Board: {boardName}
       </Typography>
       <Box sx={{ display: "flex", flexWrap: "wrap" }}>
         {lists.map((list) => (

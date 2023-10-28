@@ -29,11 +29,11 @@ const style = {
   pt: 2,
   px: 4,
   pb: 3,
-  maxHeight:"90vh",
-  overflowY:"scroll"
+  maxHeight: "90vh",
+  overflowY: "scroll",
 };
 
-export default function Card({ id, setCards, card,list }) {
+export default function Card({ id, setCards, card, list }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -49,14 +49,11 @@ export default function Card({ id, setCards, card,list }) {
       )
       .then((response) => {
         setCards((prvCards) => prvCards.filter((card) => card.id !== id));
-        console.log(response);
       });
-    console.log(card.id);
   };
 
   return (
     <Paper sx={{ width: "inherit" }}>
-      {/* <MenuList dense> */}
       <ListItem sx={{ cursor: "pointer" }}>
         <React.Fragment>
           <ListItemText onClick={handleOpen}>{card.name}</ListItemText>
@@ -77,7 +74,6 @@ export default function Card({ id, setCards, card,list }) {
           startIcon={<DeleteIcon />}
         ></Button>
       </ListItem>
-      {/* </MenuList> */}
       <Divider />
     </Paper>
   );
