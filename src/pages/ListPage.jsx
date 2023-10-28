@@ -14,7 +14,6 @@ function ListPage() {
   const {
     state: { boardName },
   } = useLocation();
-
   useEffect(() => {
     document.title = boardName;
     axios

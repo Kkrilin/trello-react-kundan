@@ -1,7 +1,5 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import { Stack, TextField } from "@mui/material";
 
 import { Button } from "@mui/material";
@@ -15,7 +13,7 @@ import axios from "axios";
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-const CheckList = ({ checkLists,checklist, idCard, dispatch }) => {
+const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
   const [checkItemName, setCheckItemName] = useState("");
 
   const handleDeleteChecklist = () => {
@@ -30,17 +28,21 @@ const CheckList = ({ checkLists,checklist, idCard, dispatch }) => {
   };
 
   const handleAddCheckItem = () => {
-    axios
-      .post(
-        `https://api.trello.com/1/checklists/${checklist.id}/checkItems?name=${checkItemName}&key=${ApiKey}&token=${token}`
-      )
-      .then((response) => {
-        console.log(response.data);
-        dispatch({ type: "ADD_CHECKITEM", payload: response.data });
-      });
-    console.log(checkItemName);
+    if (checkItemName !== "") {
+      axios
+        .post(
+          `https://api.trello.com/1/checklists/${checklist.id}/checkItems?name=${checkItemName}&key=${ApiKey}&token=${token}`
+        )
+        .then((response) => {
+          console.log(response.data);
+          dispatch({ type: "ADD_CHECKITEM", payload: response.data });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      console.log(checkItemName);
+    }
   };
-
   return (
     <Box
       sx={{ padding: "1rem", border: "1px solid black", marginTop: "0.5rem" }}
@@ -61,7 +63,7 @@ const CheckList = ({ checkLists,checklist, idCard, dispatch }) => {
 
         {checklist.checkItems.map((checkitem) => (
           <Checkitem
-          checklist={checklist}
+            checklist={checklist}
             idCard={idCard}
             key={checkitem.id}
             checkitem={checkitem}
@@ -74,10 +76,13 @@ const CheckList = ({ checkLists,checklist, idCard, dispatch }) => {
           sx={{ marginBottom: "1rem", marginTop: "0.5rem" }}
           onChange={(e) => setCheckItemName(e.target.value)}
           value={checkItemName}
+          required
           size="small"
           id="filled-basic"
           label="checkItem Name"
           variant="outlined"
+          // error={checkItemName === ""}
+          // helperText={"checkitem name required"}
         />
         <Button
           sx={{ marginBottom: "1rem", marginTop: "0.5rem" }}

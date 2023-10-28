@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import CheckList from "./CheckList";
 import CreateCheckList from "./CreateCheckList";
 import { Typography } from "@mui/material";
@@ -19,12 +19,12 @@ const Checklists = ({ Card, list }) => {
       .then((response) => {
         dispatch({ type: "FETCH_CHECKLISTS", payload: response.data });
       });
-    }, []);
-    
+  }, []);
+
   console.log();
   return (
     <>
-      <Typography>{`${Card.name} in List ${list.name}`}</Typography>
+      <Typography variant="h5">{`${Card.name} in List ${list.name}`}</Typography>
       {state.checkLists.map((checklist) => (
         <CheckList
           checkLists={state.checkLists}

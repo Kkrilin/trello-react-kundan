@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import { TextField } from "@mui/material";
@@ -31,7 +30,6 @@ export default function CreateCheckList({ idCard, setCheckLists, dispatch }) {
       .then((response) => {
         dispatch({ type: "ADD_CHECKLIST", payload: response.data });
         console.log(response.data);
-        // setCheckLists((preCheckLists) => [...preCheckLists, response.data]);
         setCheckListName("");
       });
     handleClose();
