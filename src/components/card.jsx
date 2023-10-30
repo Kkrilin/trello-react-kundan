@@ -9,6 +9,8 @@ import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Checklists from "./Checklists";
 import axios from "axios";
+import { Provider } from "react-redux";
+import store from "../store/checListSlice";
 
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
@@ -60,7 +62,9 @@ export default function Card({ id, setCards, card, list }) {
             aria-describedby="child-modal-description"
           >
             <Box sx={{ ...style, width: 400 }}>
-              <Checklists list={list} idCard={card.id} Card={card} />
+              <Provider store={store}>
+                <Checklists list={list} idCard={card.id} Card={card} />
+              </Provider>
             </Box>
           </Modal>
         </React.Fragment>

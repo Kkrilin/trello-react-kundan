@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Box } from "@mui/material";
 import axios from "axios";
+import { checklistsActions } from "../store/checListSlice";
 
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
@@ -19,9 +20,7 @@ const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
         }
       )
       .then((response) => {
-        dispatch({ type: "CHECK_CHECKITEM", payload: response.data });
-        console.log(response.data)
-        console.log(response.data);
+        dispatch(checklistsActions.checkCheckItem(response.data));
       });
   };
 
@@ -31,7 +30,7 @@ const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
         `https://api.trello.com/1/cards/${idCard}/checkItem/${checkitem.id}?key=${ApiKey}&token=${token}`
       )
       .then((response) => {
-        dispatch({ type: "DELETE_ITEM", payload: checkitem });
+        dispatch(checklistsActions.deleteCheckItem(checkitem));
       });
   };
   return (

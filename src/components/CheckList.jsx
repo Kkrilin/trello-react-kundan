@@ -8,6 +8,8 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Checkitem from "./Checkitem";
+import { checklistsActions } from "../store/checListSlice";
+
 import axios from "axios";
 
 const ApiKey = import.meta.env.VITE_API_KEY;
@@ -23,7 +25,7 @@ const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
       )
       .then((response) => {
         console.log(response.data);
-        dispatch({ type: "DELETE_CHECKLIST", payload: response.data });
+        dispatch(checklistsActions.deleteCheckList(response.data));
       });
   };
 
@@ -35,12 +37,13 @@ const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
         )
         .then((response) => {
           console.log(response.data);
-          dispatch({ type: "ADD_CHECKITEM", payload: response.data });
+          dispatch(checklistsActions.addCheckItem(response.data));
         })
         .catch((error) => {
           console.log(error);
         });
       console.log(checkItemName);
+      setCheckItemName('')
     }
   };
   return (

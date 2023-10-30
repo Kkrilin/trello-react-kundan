@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import { TextField } from "@mui/material";
 import axios from "axios";
+import { checklistsActions } from "../store/checListSlice";
 
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
@@ -28,7 +29,7 @@ export default function CreateCheckList({ idCard, setCheckLists, dispatch }) {
         }
       )
       .then((response) => {
-        dispatch({ type: "ADD_CHECKLIST", payload: response.data });
+        dispatch(checklistsActions.addCheckList(response.data));
         console.log(response.data);
         setCheckListName("");
       });
