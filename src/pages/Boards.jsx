@@ -16,7 +16,10 @@ const Boards = () => {
       .get(
         `https://api.trello.com/1/members/${memberID}/boards?key=${ApiKey}&token=${token}`
       )
-      .then((response) => setBoards(response.data));
+      .then((response) => setBoards(response.data))
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
