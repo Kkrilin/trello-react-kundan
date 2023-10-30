@@ -20,8 +20,11 @@ const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
       )
       .then((response) => {
         dispatch({ type: "CHECK_CHECKITEM", payload: response.data });
-        console.log(response.data)
         console.log(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 

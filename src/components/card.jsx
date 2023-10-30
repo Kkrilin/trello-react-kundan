@@ -45,6 +45,9 @@ export default function Card({ id, setCards, card, list }) {
       )
       .then((response) => {
         setCards((prvCards) => prvCards.filter((card) => card.id !== id));
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 

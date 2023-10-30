@@ -24,6 +24,9 @@ const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
       .then((response) => {
         console.log(response.data);
         dispatch({ type: "DELETE_CHECKLIST", payload: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 

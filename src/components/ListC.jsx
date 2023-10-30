@@ -25,6 +25,9 @@ export default function ListC({ setLists, list }) {
         setLists((preLists) =>
           preLists.filter((list) => list.id !== response.data.id)
         );
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
