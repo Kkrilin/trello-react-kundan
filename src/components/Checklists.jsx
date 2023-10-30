@@ -18,6 +18,9 @@ const Checklists = ({ Card, list }) => {
       )
       .then((response) => {
         dispatch({ type: "FETCH_CHECKLISTS", payload: response.data });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
 
