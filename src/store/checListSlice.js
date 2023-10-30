@@ -36,7 +36,6 @@ const checklistSlice = createSlice({
           checklist.checkItems.push(action.payload);
         }
       });
-      //make a project now
     },
     deleteCheckItem(state, action) {
       state.checkLists.map((checklist) => {
