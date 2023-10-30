@@ -24,7 +24,7 @@ const Checklists = ({ Card, list }) => {
       });
   }, []);
 
-  console.log();
+  
   return (
     <>
       <Typography variant="h5">{`${Card.name} in List ${list.name}`}</Typography>
