@@ -12,48 +12,38 @@ const checklistSlice = createSlice({
       state.checkLists = action.payload;
     },
     addCheckList(state, action) {
-      state.checkLists = [...state.checkLists, action.payload];
+      // state.checkLists = [...state.checkLists, action.payload];
+      state.checkLists.push(action.payload);
     },
     deleteCheckList(state, action) {
       state.checkLists = action.payload;
     },
     checkCheckItem(state, action) {
-      state.checkLists = state.checkLists.map((checklist) => {
+      state.checkLists.forEach((checklist) => {
         if (checklist.id === action.payload.idChecklist) {
-          return {
-            ...checklist,
-            checkItems: checklist.checkItems.map((checkitem) =>
-              checkitem.id === action.payload.id ? action.payload : checkitem
-            ),
-          };
-        } else {
-          return checklist;
+          checklist.checkItems.forEach((checkitem, i, arr) => {
+            if (checkitem.id === action.payload.id) {
+              arr[i] = action.payload;
+            }
+          });
         }
       });
     },
     addCheckItem(state, action) {
-      state.checkLists = state.checkLists.map((checklist) => {
+      state.checkLists.forEach((checklist) => {
         if (checklist.id === action.payload.idChecklist) {
-          return {
-            ...checklist,
-            checkItems: [...checklist.checkItems, action.payload],
-          };
-        } else {
-          return checklist;
+          // checklist.checkItems=[...checklist.checkItems, action.payload],
+          checklist.checkItems.push(action.payload);
         }
       });
+      //make a project now
     },
     deleteCheckItem(state, action) {
-      state.checkLists = state.checkLists.map((checklist) => {
+      state.checkLists.map((checklist) => {
         if (checklist.id === action.payload.idChecklist) {
-          return {
-            ...checklist,
-            checkItems: checklist.checkItems.filter(
-              (checkitem) => checkitem.id !== action.payload.id
-            ),
-          };
-        } else {
-          return checklist;
+          checklist.checkItems = checklist.checkItems.filter(
+            (checkitem) => checkitem.id !== action.payload.id
+          );
         }
       });
     },
