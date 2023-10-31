@@ -15,9 +15,6 @@ const token = import.meta.env.VITE_TOKEN;
 function ListPage() {
   const dispatch = useDispatch();
   const { lists, loading, error } = useSelector((state) => state.list);
-  console.log(lists);
-  console.log(loading);
-  console.log(error);
   const { boardId } = useParams();
   const {
     state: { boardName },
