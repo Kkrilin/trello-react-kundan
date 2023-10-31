@@ -3,10 +3,21 @@
   padding: 0;
 }
 
-body{
+body {
   background-color: rgb(19, 30, 33);
 }
-a{
+a {
   color: unset;
   text-decoration: none;
+}
+
+.loading_Image {
+  display: grid;
+  height: 90vh;
+  place-items: center;
+}
+
+.message {
+  color: white;
+  mix-blend-mode: difference;
 }

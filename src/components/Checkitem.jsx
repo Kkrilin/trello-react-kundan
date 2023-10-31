@@ -20,10 +20,16 @@ const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
       )
       .then((response) => {
         dispatch({ type: "CHECK_CHECKITEM", payload: response.data });
-        console.log(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
+        dispatch({
+          type: "ERROR",
+          payload: {
+            message: error.message,
+            response: error.response.data,
+            status: true,
+          },
+        });
         console.log(error);
       });
   };
@@ -35,6 +41,17 @@ const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
       )
       .then((response) => {
         dispatch({ type: "DELETE_ITEM", payload: checkitem });
+      })
+      .catch((error) => {
+        dispatch({
+          type: "ERROR",
+          payload: {
+            message: error.message,
+            response: "checkitem can not be deleted check api",
+            status: true,
+          },
+        });
+        console.log(error);
       });
   };
   return (

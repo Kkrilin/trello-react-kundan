@@ -29,7 +29,7 @@ const style = {
   overflowY: "scroll",
 };
 
-export default function Card({ id, setCards, card, list }) {
+export default function Card({ setErrorMessage, id, setCards, card, list }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -48,6 +48,11 @@ export default function Card({ id, setCards, card, list }) {
       })
       .catch((error) => {
         console.log(error);
+        setErrorMessage({
+          message: error.message,
+          response: error.code,
+          status: true,
+        });
       });
   };
 

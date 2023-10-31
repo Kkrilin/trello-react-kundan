@@ -31,6 +31,17 @@ export default function CreateCheckList({ idCard, setCheckLists, dispatch }) {
         dispatch({ type: "ADD_CHECKLIST", payload: response.data });
         console.log(response.data);
         setCheckListName("");
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({
+          type: "ERROR",
+          payload: {
+            message: error.message,
+            response: error.response.data,
+            status: true,
+          },
+        });
       });
     handleClose();
   };

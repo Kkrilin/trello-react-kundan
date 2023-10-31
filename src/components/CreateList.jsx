@@ -23,7 +23,7 @@ const style = {
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-export default function CreateList({ boardId, setLists }) {
+export default function CreateList({ setErrorMessage, boardId, setLists }) {
   const [open, setOpen] = useState(false);
   const [listName, setListName] = useState("");
   const handleOpen = () => setOpen(true);
@@ -37,6 +37,14 @@ export default function CreateList({ boardId, setLists }) {
       .then((response) => {
         console.log(response);
         setLists((preList) => [...preList, response.data]);
+      })
+      .catch((error) => {
+        console.log(error);
+        setErrorMessage({
+          message: error.message,
+          response: error.response.data,
+          status: true,
+        });
       });
 
     setOpen(false);
@@ -56,7 +64,6 @@ export default function CreateList({ boardId, setLists }) {
         <Box sx={style}>
           <TextField
             InputProps={{ autoFocus: true }}
-
             onChange={(e) => setListName(e.target.value)}
             id="filled-basic"
             label="list Name"

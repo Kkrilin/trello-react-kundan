@@ -23,7 +23,7 @@ const style = {
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-export default function CreateCard({ idList, setCards }) {
+export default function CreateCard({ setErrorMessage, idList, setCards }) {
   const [open, setOpen] = useState(false);
   const [cardName, setCardName] = useState("");
   const handleOpen = () => setOpen(true);
@@ -40,13 +40,20 @@ export default function CreateCard({ idList, setCards }) {
       .then((response) => {
         console.log(response);
         setCards((preCards) => [...preCards, response.data]);
+      })
+      .catch((error) => {
+        setErrorMessage({
+          message: error.message,
+          response: error.response.data,
+          status: true,
+        });
       });
 
     setOpen(false);
   };
 
   return (
-    <div style={{textAlign:"center"}}>
+    <div style={{ textAlign: "center" }}>
       <Button onClick={handleOpen}>Create card</Button>
       <Modal
         open={open}
@@ -57,7 +64,6 @@ export default function CreateCard({ idList, setCards }) {
         <Box sx={style}>
           <TextField
             InputProps={{ autoFocus: true }}
-
             onChange={(e) => setCardName(e.target.value)}
             id="filled-basic"
             label="card Name"

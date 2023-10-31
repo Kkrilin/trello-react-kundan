@@ -27,6 +27,14 @@ const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
       })
       .catch((error) => {
         console.log(error);
+        dispatch({
+          type: "ERROR",
+          payload: {
+            message: error.message,
+            response: "there Is an Error in API ",
+            status: true,
+          },
+        });
       });
   };
 
@@ -41,10 +49,19 @@ const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
           dispatch({ type: "ADD_CHECKITEM", payload: response.data });
         })
         .catch((error) => {
+          dispatch({
+            type: "ERROR",
+            payload: {
+              message: error.message,
+              response: error.response.data,
+              status: true,
+            },
+          });
           console.log(error);
         });
       console.log(checkItemName);
     }
+    setCheckItemName("");
   };
   return (
     <Box

@@ -11,7 +11,7 @@ import axios from "axios";
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-export default function ListC({ setLists, list }) {
+export default function BoardList({ setErrorMessage, setLists, list }) {
   const handleDeleteList = () => {
     axios
       .put(
@@ -28,6 +28,11 @@ export default function ListC({ setLists, list }) {
       })
       .catch((error) => {
         console.log(error);
+        setErrorMessage({
+          message: error.message,
+          response: error.response.data,
+          status: true,
+        });
       });
   };
 
@@ -60,7 +65,7 @@ export default function ListC({ setLists, list }) {
         </ListItem>
       </List>
       <Divider />
-      <Cards list={list} idList={list.id} />
+      <Cards setErrorMessage={setErrorMessage} list={list} idList={list.id} />
     </Box>
   );
 }

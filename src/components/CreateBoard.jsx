@@ -23,10 +23,12 @@ const style = {
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-export default function CreateBoard({ setBoards }) {
+export default function CreateBoard({ boards, setBoards }) {
   const [open, setOpen] = useState(false);
   const [boardName, setBoardName] = useState("");
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    if (boards.length < 10) setOpen(true);
+  };
   const handleClose = () => setOpen(false);
 
   const handleCreateButton = () => {
@@ -35,16 +37,21 @@ export default function CreateBoard({ setBoards }) {
         `https://api.trello.com/1/boards/?name=${boardName}&key=${ApiKey}&token=${token}`
       )
       .then((response) => {
-        console.log(response);
         setBoards((boards) => [...boards, response.data]);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-
     setOpen(false);
   };
 
   return (
     <div>
-      <Button onClick={handleOpen}>Create Board</Button>
+      <Button onClick={handleOpen}>
+        {boards.length === 10
+          ? "reached maximum number of boards"
+          : "Create Board"}
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
