@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { checklistsActions } from "../store/checListSlice";
 
-const ApiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
 const Checklists = ({ Card, list }) => {
@@ -16,7 +16,7 @@ const Checklists = ({ Card, list }) => {
   useEffect(() => {
     axios
       .get(
-        `https://api.trello.com/1/cards/${Card.id}/checklists?key=${ApiKey}&token=${token}`
+        `https://api.trello.com/1/cards/${Card.id}/checklists?key=${apiKey}&token=${token}`
       )
       .then((response) => {
         dispatch(checklistsActions.fetchData(response.data));

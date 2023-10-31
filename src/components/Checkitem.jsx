@@ -6,7 +6,7 @@ import { Box } from "@mui/material";
 import axios from "axios";
 import { checklistsActions } from "../store/checListSlice";
 
-const ApiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
 const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
@@ -14,7 +14,7 @@ const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
     const checkItemState = e.target.checked ? "complete" : "incomplete";
     axios
       .put(
-        `https://api.trello.com/1/cards/${idCard}/checkItem/${checkitem.id}?key=${ApiKey}&token=${token}`,
+        `https://api.trello.com/1/cards/${idCard}/checkItem/${checkitem.id}?key=${apiKey}&token=${token}`,
         {
           state: checkItemState,
         }

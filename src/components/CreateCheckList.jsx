@@ -6,7 +6,7 @@ import { TextField } from "@mui/material";
 import axios from "axios";
 import { checklistsActions } from "../store/checListSlice";
 
-const ApiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
 export default function CreateCheckList({ idCard, setCheckLists, dispatch }) {
@@ -23,7 +23,7 @@ export default function CreateCheckList({ idCard, setCheckLists, dispatch }) {
   const handleAddCheclistButton = () => {
     axios
       .post(
-        `https://api.trello.com/1/cards/${idCard}/checklists?key=${ApiKey}&token=${token}`,
+        `https://api.trello.com/1/cards/${idCard}/checklists?key=${apiKey}&token=${token}`,
         {
           name: checklistName,
         }

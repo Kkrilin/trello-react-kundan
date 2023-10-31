@@ -5,7 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
-export default function BoardCard({ board }) {
+export default function Board({ board }) {
   const navigate = useNavigate();
   const handleboardNavigate = () => {
     navigate(`/boards/${board.id}`, { state: { boardName: board.name } });
