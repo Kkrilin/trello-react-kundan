@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
 import axios from "axios";
+import { listActions } from "../store/listSlice";
 
 const style = {
   position: "absolute",
@@ -23,20 +24,29 @@ const style = {
 const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-export default function CreateList({ boardId, setLists }) {
+export default function CreateList({ boardId, dispatch }) {
   const [open, setOpen] = useState(false);
   const [listName, setListName] = useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleCreateButton = () => {
+    dispatch(listActions.fetchDataRequested());
     axios
       .post(
         `https://api.trello.com/1/boards/${boardId}/lists?name=${listName}&key=${apiKey}&token=${token}`
       )
       .then((response) => {
-        console.log(response);
-        setLists((preList) => [...preList, response.data]);
+        dispatch(listActions.addList(response.data));
+      })
+      .catch((error) => {
+        dispatch(
+          listActions.fetchDataFailed({
+            message: error.message,
+            response: error.response.data,
+            status: true,
+          })
+        );
       });
 
     setOpen(false);
@@ -56,7 +66,6 @@ export default function CreateList({ boardId, setLists }) {
         <Box sx={style}>
           <TextField
             InputProps={{ autoFocus: true }}
-
             onChange={(e) => setListName(e.target.value)}
             id="filled-basic"
             label="list Name"

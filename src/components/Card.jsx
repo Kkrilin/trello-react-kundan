@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Checklists from "./Checklists";
 import axios from "axios";
 import { Provider } from "react-redux";
-import store from "../store/checListSlice";
+import store from "../store/store";
 
 const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;

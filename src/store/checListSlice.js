@@ -51,8 +51,4 @@ const checklistSlice = createSlice({
 
 export const checklistsActions = checklistSlice.actions;
 
-const store = configureStore({
-  reducer: { checkList: checklistSlice.reducer },
-});
-
-export default store;
+export default checklistSlice.reducer;

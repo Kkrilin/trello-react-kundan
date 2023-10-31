@@ -33,7 +33,7 @@ const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
     if (checkItemName !== "") {
       axios
         .post(
-          `https://api.trello.com/1/checklists/${checklist.id}/checkItems?name=${checkItemName}&key=${ApiKey}&token=${token}`
+          `https://api.trello.com/1/checklists/${checklist.id}/checkItems?name=${checkItemName}&key=${apiKey}&token=${token}`
         )
         .then((response) => {
           console.log(response.data);
@@ -43,7 +43,7 @@ const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
           console.log(error);
         });
       console.log(checkItemName);
-      setCheckItemName('')
+      setCheckItemName("");
     }
   };
   return (

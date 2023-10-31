@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { createBoard } from "../store/boardsActions";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
-import axios from "axios";
 
 const style = {
   position: "absolute",
@@ -20,30 +20,26 @@ const style = {
   gap: "1rem",
 };
 
-const apiKey = import.meta.env.VITE_API_KEY;
-const token = import.meta.env.VITE_TOKEN;
-
-export default function CreateBoard({ setBoards }) {
+export default function CreateBoard({ boards, dispatch }) {
   const [open, setOpen] = useState(false);
   const [boardName, setBoardName] = useState("");
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    if (boards.length < 10) setOpen(true);
+  };
   const handleClose = () => setOpen(false);
 
   const handleCreateButton = () => {
-    axios
-      .post(
-        `https://api.trello.com/1/boards/?name=${boardName}&key=${apiKey}&token=${token}`
-      )
-      .then((response) => {
-        console.log(response);
-        setBoards((boards) => [...boards, response.data]);
-      });
+    dispatch(createBoard(boardName));
     setOpen(false);
   };
 
   return (
     <div>
-      <Button onClick={handleOpen}>Create Board</Button>
+      <Button onClick={handleOpen}>
+        {boards.length === 10
+          ? "reached maximun number of board creation "
+          : "Create Board"}
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
