@@ -12,7 +12,7 @@ import axios from "axios";
 import { Provider } from "react-redux";
 import store from "../store/checListSlice";
 
-const ApiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
 const style = {
@@ -43,7 +43,7 @@ export default function Card({ id, setCards, card, list }) {
   const handleDeleteCard = () => {
     axios
       .delete(
-        `https://api.trello.com/1/cards/${card.id}?key=${ApiKey}&token=${token}`
+        `https://api.trello.com/1/cards/${card.id}?key=${apiKey}&token=${token}`
       )
       .then((response) => {
         setCards((prvCards) => prvCards.filter((card) => card.id !== id));

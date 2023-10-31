@@ -38,7 +38,7 @@ const checklistSlice = createSlice({
       });
     },
     deleteCheckItem(state, action) {
-      state.checkLists.map((checklist) => {
+      state.checkLists.forEach((checklist) => {
         if (checklist.id === action.payload.idChecklist) {
           checklist.checkItems = checklist.checkItems.filter(
             (checkitem) => checkitem.id !== action.payload.id

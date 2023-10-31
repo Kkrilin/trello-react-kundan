@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CreateCard from "./CreateCard";
-import Card from "./card";
+import Card from "./Card";
 
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
-const Cards = ({ idList,list }) => {
+const Cards = ({ idList, list }) => {
   const [cards, setCards] = useState([]);
   useEffect(() => {
     axios
@@ -20,7 +20,13 @@ const Cards = ({ idList,list }) => {
   return (
     <>
       {cards.map((card) => (
-        <Card list={list} id={card.id} key={card.id} card={card} setCards={setCards} />
+        <Card
+          list={list}
+          id={card.id}
+          key={card.id}
+          card={card}
+          setCards={setCards}
+        />
       ))}
       <CreateCard setCards={setCards} idList={idList} />
     </>
