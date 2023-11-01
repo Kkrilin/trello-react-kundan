@@ -5,7 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Box } from "@mui/material";
 import axios from "axios";
 
-const ApiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
 const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
@@ -13,7 +13,7 @@ const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
     const checkItemState = e.target.checked ? "complete" : "incomplete";
     axios
       .put(
-        `https://api.trello.com/1/cards/${idCard}/checkItem/${checkitem.id}?key=${ApiKey}&token=${token}`,
+        `https://api.trello.com/1/cards/${idCard}/checkItem/${checkitem.id}?key=${apiKey}&token=${token}`,
         {
           state: checkItemState,
         }
@@ -37,7 +37,7 @@ const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
   const handleDeleteCheckItem = () => {
     axios
       .delete(
-        `https://api.trello.com/1/cards/${idCard}/checkItem/${checkitem.id}?key=${ApiKey}&token=${token}`
+        `https://api.trello.com/1/cards/${idCard}/checkItem/${checkitem.id}?key=${apiKey}&token=${token}`
       )
       .then((response) => {
         dispatch({ type: "DELETE_ITEM", payload: checkitem });

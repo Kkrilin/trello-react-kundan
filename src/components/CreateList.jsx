@@ -20,7 +20,7 @@ const style = {
   gap: "1rem",
 };
 
-const ApiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
 export default function CreateList({ setErrorMessage, boardId, setLists }) {
@@ -32,7 +32,7 @@ export default function CreateList({ setErrorMessage, boardId, setLists }) {
   const handleCreateButton = () => {
     axios
       .post(
-        `https://api.trello.com/1/boards/${boardId}/lists?name=${listName}&key=${ApiKey}&token=${token}`
+        `https://api.trello.com/1/boards/${boardId}/lists?name=${listName}&key=${apiKey}&token=${token}`
       )
       .then((response) => {
         console.log(response);

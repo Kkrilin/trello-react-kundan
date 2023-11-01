@@ -10,7 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Checkitem from "./Checkitem";
 import axios from "axios";
 
-const ApiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
 const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
@@ -19,7 +19,7 @@ const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
   const handleDeleteChecklist = () => {
     axios
       .delete(
-        `https://api.trello.com/1/cards/${idCard}/checklists/${checklist.id}?key=${ApiKey}&token=${token}`
+        `https://api.trello.com/1/cards/${idCard}/checklists/${checklist.id}?key=${apiKey}&token=${token}`
       )
       .then((response) => {
         console.log(response.data);
@@ -42,7 +42,7 @@ const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
     if (checkItemName !== "") {
       axios
         .post(
-          `https://api.trello.com/1/checklists/${checklist.id}/checkItems?name=${checkItemName}&key=${ApiKey}&token=${token}`
+          `https://api.trello.com/1/checklists/${checklist.id}/checkItems?name=${checkItemName}&key=${apiKey}&token=${token}`
         )
         .then((response) => {
           console.log(response.data);

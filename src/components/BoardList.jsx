@@ -8,14 +8,14 @@ import Cards from "./Cards";
 import { Button, Divider, Typography } from "@mui/material";
 import axios from "axios";
 
-const ApiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
 export default function BoardList({ setErrorMessage, setLists, list }) {
   const handleDeleteList = () => {
     axios
       .put(
-        `https://api.trello.com/1/lists/${list.id}/closed?key=${ApiKey}&token=${token}`,
+        `https://api.trello.com/1/lists/${list.id}/closed?key=${apiKey}&token=${token}`,
         {
           value: true,
         }

@@ -20,7 +20,7 @@ const style = {
   gap: "1rem",
 };
 
-const ApiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
 export default function CreateCard({ setErrorMessage, idList, setCards }) {
@@ -32,7 +32,7 @@ export default function CreateCard({ setErrorMessage, idList, setCards }) {
   const handleCreateCard = () => {
     axios
       .post(
-        `https://api.trello.com/1/cards?idList=${idList}&key=${ApiKey}&token=${token}`,
+        `https://api.trello.com/1/cards?idList=${idList}&key=${apiKey}&token=${token}`,
         {
           name: cardName,
         }

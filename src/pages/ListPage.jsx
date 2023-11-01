@@ -7,7 +7,7 @@ import BoardList from "../components/BoardList";
 import CreateList from "../components/CreateList";
 import Message from "../components/Message";
 
-const ApiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
 function ListPage() {
@@ -26,7 +26,7 @@ function ListPage() {
     document.title = boardName;
     axios
       .get(
-        `https://api.trello.com/1/boards/${boardId}/lists?key=${ApiKey}&token=${token}`
+        `https://api.trello.com/1/boards/${boardId}/lists?key=${apiKey}&token=${token}`
       )
       .then((response) => {
         setLists(response.data);

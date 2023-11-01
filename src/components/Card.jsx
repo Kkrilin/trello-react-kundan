@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Checklists from "./Checklists";
 import axios from "axios";
 
-const ApiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
 const style = {
@@ -41,7 +41,7 @@ export default function Card({ setErrorMessage, id, setCards, card, list }) {
   const handleDeleteCard = () => {
     axios
       .delete(
-        `https://api.trello.com/1/cards/${card.id}?key=${ApiKey}&token=${token}`
+        `https://api.trello.com/1/cards/${card.id}?key=${apiKey}&token=${token}`
       )
       .then((response) => {
         setCards((prvCards) => prvCards.filter((card) => card.id !== id));

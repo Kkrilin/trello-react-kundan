@@ -8,7 +8,7 @@ import checkListReducer from "../reducer/checkListReducer";
 import CircularLoading from "./CircularLoading";
 import Message from "./Message";
 
-const ApiKey = import.meta.env.VITE_API_KEY;
+const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
 const Checklists = ({ Card, list }) => {
@@ -16,7 +16,7 @@ const Checklists = ({ Card, list }) => {
   useEffect(() => {
     axios
       .get(
-        `https://api.trello.com/1/cards/${Card.id}/checklists?key=${ApiKey}&token=${token}`
+        `https://api.trello.com/1/cards/${Card.id}/checklists?key=${apiKey}&token=${token}`
       )
       .then((response) => {
         dispatch({ type: "FETCH_CHECKLISTS", payload: response.data });
