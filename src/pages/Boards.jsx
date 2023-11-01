@@ -45,7 +45,11 @@ const Boards = () => {
           {boards.map((board) => {
             return <Board key={board.id} board={board} />;
           })}
-          <CreateBoard boards={boards} setBoards={setBoards} />
+          <CreateBoard
+            setErrorMessage={setErrorMessage}
+            boards={boards}
+            setBoards={setBoards}
+          />
         </Box>
       )}
     </>

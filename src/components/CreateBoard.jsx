@@ -23,7 +23,7 @@ const style = {
 const ApiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-export default function CreateBoard({ boards, setBoards }) {
+export default function CreateBoard({ boards, setBoards, setErrorMessage }) {
   const [open, setOpen] = useState(false);
   const [boardName, setBoardName] = useState("");
   const handleOpen = () => {
@@ -40,6 +40,11 @@ export default function CreateBoard({ boards, setBoards }) {
         setBoards((boards) => [...boards, response.data]);
       })
       .catch((error) => {
+        setErrorMessage({
+          message: error.message,
+          response: error.response.data,
+          status: true,
+        });
         console.log(error);
       });
     setOpen(false);

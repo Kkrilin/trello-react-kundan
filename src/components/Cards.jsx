@@ -14,6 +14,13 @@ const Cards = ({ setErrorMessage, idList, list }) => {
       )
       .then((response) => {
         setCards(response.data);
+      })
+      .catch((error) => {
+        setErrorMessage({
+          message: error.message,
+          response: error.code,
+          status: true,
+        });
       });
   }, []);
 
