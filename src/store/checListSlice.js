@@ -2,14 +2,24 @@ import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 const checklistsState = {
   checkLists: [],
+  loading: true,
+  error: {
+    message: "",
+    response: "",
+    status: false,
+  },
 };
-
 const checklistSlice = createSlice({
   name: "checklists",
   initialState: checklistsState,
   reducers: {
+    fetchError(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
     fetchData(state, action) {
       state.checkLists = action.payload;
+      state.loading =false
     },
     addCheckList(state, action) {
       // state.checkLists = [...state.checkLists, action.payload];

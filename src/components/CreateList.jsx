@@ -30,8 +30,8 @@ export default function CreateList({ boardId, dispatch }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleCreateButton = () => {
-    dispatch(listActions.fetchDataRequested());
+  const handleListCreateButton = () => {
+    // dispatch(listActions.fetchDataRequested());
     axios
       .post(
         `https://api.trello.com/1/boards/${boardId}/lists?name=${listName}&key=${apiKey}&token=${token}`
@@ -71,7 +71,7 @@ export default function CreateList({ boardId, dispatch }) {
             label="list Name"
             variant="outlined"
           />
-          <Button variant="contained" onClick={handleCreateButton}>
+          <Button variant="contained" onClick={handleListCreateButton}>
             create List
           </Button>
         </Box>

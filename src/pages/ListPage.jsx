@@ -19,7 +19,6 @@ function ListPage() {
   const {
     state: { boardName },
   } = useLocation();
-
   useEffect(() => {
     document.title = boardName;
     dispatch(listActions.fetchDataRequested());
@@ -44,6 +43,7 @@ function ListPage() {
   return (
     <>
       {loading && <TrelloLoading />}
+      {error.status && <Message message={error} />}
       {!loading && error.status && <Message message={error} />}
       {!loading && !error.status && (
         <>

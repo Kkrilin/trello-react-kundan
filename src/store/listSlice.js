@@ -14,7 +14,6 @@ const listSlice = createSlice({
   reducers: {
     fetchDataRequested(state) {
       state.loading = true;
-      state.lists = [];
     },
     fetchDataSuccess(state, action) {
       state.lists = action.payload;

@@ -14,7 +14,7 @@ const token = import.meta.env.VITE_TOKEN;
 
 export default function BoardList({ dispatch, list }) {
   const handleDeleteList = () => {
-    dispatch(listActions.fetchDataRequested());
+    // dispatch(listActions.fetchDataRequested());
     axios
       .put(
         `https://api.trello.com/1/lists/${list.id}/closed?key=${apiKey}&token=${token}`,
@@ -66,7 +66,7 @@ export default function BoardList({ dispatch, list }) {
         </ListItem>
       </List>
       <Divider />
-      <Cards list={list} idList={list.id} />
+      <Cards dispatch={dispatch} list={list} idList={list.id} />
     </Box>
   );
 }

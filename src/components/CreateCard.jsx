@@ -41,7 +41,6 @@ export default function CreateCard({ idList, setCards }) {
         console.log(response);
         setCards((preCards) => [...preCards, response.data]);
       });
-
     setOpen(false);
   };
 
