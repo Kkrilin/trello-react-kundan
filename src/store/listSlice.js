@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const listState = {
   lists: [],
-  loading: false,
+  loading: true,
   error: {
     status: true,
   },

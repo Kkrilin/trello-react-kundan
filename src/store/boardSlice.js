@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const boardState = {
   boards: [],
-  loading: false,
+  loading: true,
   error: {
     status: true,
   },

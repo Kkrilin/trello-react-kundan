@@ -24,8 +24,16 @@ const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
         `https://api.trello.com/1/cards/${idCard}/checklists/${checklist.id}?key=${apiKey}&token=${token}`
       )
       .then((response) => {
-        console.log(response.data);
         dispatch(checklistsActions.deleteCheckList(response.data));
+      })
+      .catch((error) => {
+        dispatch(
+          checklistsActions.fetchError({
+            message: error.message,
+            response: error.code,
+            status: true,
+          })
+        );
       });
   };
 
@@ -36,11 +44,16 @@ const CheckList = ({ checkLists, checklist, idCard, dispatch }) => {
           `https://api.trello.com/1/checklists/${checklist.id}/checkItems?name=${checkItemName}&key=${apiKey}&token=${token}`
         )
         .then((response) => {
-          console.log(response.data);
           dispatch(checklistsActions.addCheckItem(response.data));
         })
         .catch((error) => {
-          console.log(error);
+          dispatch(
+            checklistsActions.fetchError({
+              message: error.message,
+              response: error.response.data,
+              status: true,
+            })
+          );
         });
       console.log(checkItemName);
       setCheckItemName("");

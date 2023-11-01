@@ -1,4 +1,4 @@
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { createSlice} from "@reduxjs/toolkit";
 
 const checklistsState = {
   checkLists: [],
@@ -19,14 +19,19 @@ const checklistSlice = createSlice({
     },
     fetchData(state, action) {
       state.checkLists = action.payload;
-      state.loading =false
+      state.loading = false;
+      state.error.status = false;
     },
     addCheckList(state, action) {
       // state.checkLists = [...state.checkLists, action.payload];
       state.checkLists.push(action.payload);
+      state.loading = false;
+      state.error.status = false;
     },
     deleteCheckList(state, action) {
       state.checkLists = action.payload;
+      state.loading = false;
+      state.error.status = false;
     },
     checkCheckItem(state, action) {
       state.checkLists.forEach((checklist) => {
@@ -38,6 +43,8 @@ const checklistSlice = createSlice({
           });
         }
       });
+      state.loading = false;
+      state.error.status = false;
     },
     addCheckItem(state, action) {
       state.checkLists.forEach((checklist) => {
@@ -46,6 +53,8 @@ const checklistSlice = createSlice({
           checklist.checkItems.push(action.payload);
         }
       });
+      state.loading = false;
+      state.error.status = false;
     },
     deleteCheckItem(state, action) {
       state.checkLists.forEach((checklist) => {
@@ -55,6 +64,8 @@ const checklistSlice = createSlice({
           );
         }
       });
+      state.loading = false;
+      state.error.status = false;
     },
   },
 });

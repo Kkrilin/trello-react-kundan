@@ -9,7 +9,7 @@ import { checklistsActions } from "../store/checListSlice";
 const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
+const Checkitem = ({ checkitem, idCard, dispatch }) => {
   const handleCheckItemChange = (e) => {
     const checkItemState = e.target.checked ? "complete" : "incomplete";
     axios
@@ -21,16 +21,34 @@ const Checkitem = ({ setCheckList, checkitem, idCard, dispatch }) => {
       )
       .then((response) => {
         dispatch(checklistsActions.checkCheckItem(response.data));
+      })
+      .catch((error) => {
+        dispatch(
+          checklistsActions.fetchError({
+            message: error.message,
+            response: error.response.data,
+            status: true,
+          })
+        );
       });
   };
 
   const handleDeleteCheckItem = () => {
     axios
       .delete(
-        `https://api.trello.com/1/cards/${idCard}/checkItem/${checkitem.id}?key=${apiKey}&token=${token}`
+        `https://api.trello.com/1/cards12/${idCard}/checkItem/${checkitem.id}?key=${apiKey}&token=${token}`
       )
       .then((response) => {
         dispatch(checklistsActions.deleteCheckItem(checkitem));
+      })
+      .catch((error) => {
+        dispatch(
+          checklistsActions.fetchError({
+            message: error.message,
+            response: error.code,
+            status: true,
+          })
+        );
       });
   };
   return (

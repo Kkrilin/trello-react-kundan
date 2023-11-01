@@ -8,9 +8,9 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Button from "@mui/material/Button";
 import Checklists from "./Checklists";
+import { cardActions } from "../store/cardSlice";
+import { useDispatch } from "react-redux";
 import axios from "axios";
-import { Provider } from "react-redux";
-import store from "../store/store";
 
 const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
@@ -31,8 +31,9 @@ const style = {
   overflowY: "scroll",
 };
 
-export default function Card({ id, setCards, card, list }) {
+export default function Card({ id, card, list }) {
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
   const handleOpen = () => {
     setOpen(true);
   };
@@ -46,7 +47,21 @@ export default function Card({ id, setCards, card, list }) {
         `https://api.trello.com/1/cards/${card.id}?key=${apiKey}&token=${token}`
       )
       .then((response) => {
-        setCards((prvCards) => prvCards.filter((card) => card.id !== id));
+        dispatch(
+          cardActions.deleteCard({
+            idList: list.id,
+            idCard: id,
+          })
+        );
+        // setCards((prvCards) => prvCards.filter((card) => card.id !== id));
+      })
+      .catch((error) => {
+        dispatch(
+          cardActions.error({
+            status: true,
+            message: "error in deleting card",
+          })
+        );
       });
   };
 
@@ -62,9 +77,7 @@ export default function Card({ id, setCards, card, list }) {
             aria-describedby="child-modal-description"
           >
             <Box sx={{ ...style, width: 400 }}>
-              <Provider store={store}>
-                <Checklists list={list} idCard={card.id} Card={card} />
-              </Provider>
+              <Checklists list={list} idCard={card.id} Card={card} />
             </Box>
           </Modal>
         </React.Fragment>

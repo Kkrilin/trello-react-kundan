@@ -10,10 +10,10 @@ import { Box } from "@mui/material";
 const Boards = () => {
   const dispatch = useDispatch();
   const { boards, loading, error } = useSelector((state) => state.board);
-  // console.log(boards);
+  // console.log(boards, loading, error);
+
   useEffect(() => {
     document.title = "Trello";
-
     dispatch(fetchBoards());
   }, []);
 

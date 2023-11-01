@@ -15,7 +15,6 @@ const Checklists = ({ Card, list }) => {
   const { checkLists, loading, error } = useSelector(
     (state) => state.checkList
   );
-  console.log(checkLists);
   useEffect(() => {
     axios
       .get(
@@ -23,11 +22,10 @@ const Checklists = ({ Card, list }) => {
       )
       .then((response) => {
         dispatch(checklistsActions.fetchData(response.data));
-        console.log(checklistsActions.fetchData(response.data));
       })
       .catch((error) => {
         dispatch(
-          checklistsActions.fetchData({
+          checklistsActions.fetchError({
             message: error.message,
             response: error.response.data,
             status: true,
@@ -36,7 +34,6 @@ const Checklists = ({ Card, list }) => {
       });
   }, []);
 
-  console.log();
   return (
     <>
       {loading && <CircularLoading />}

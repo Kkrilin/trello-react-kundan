@@ -3,6 +3,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Modal from "@mui/material/Modal";
+import { cardActions } from "../store/cardSlice";
+import { useDispatch } from "react-redux";
+
 import axios from "axios";
 
 const style = {
@@ -23,9 +26,10 @@ const style = {
 const apiKey = import.meta.env.VITE_API_KEY;
 const token = import.meta.env.VITE_TOKEN;
 
-export default function CreateCard({ idList, setCards }) {
+export default function CreateCard({ idList }) {
   const [open, setOpen] = useState(false);
   const [cardName, setCardName] = useState("");
+  const dispatch = useDispatch();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -39,13 +43,23 @@ export default function CreateCard({ idList, setCards }) {
       )
       .then((response) => {
         console.log(response);
-        setCards((preCards) => [...preCards, response.data]);
+        dispatch(cardActions.addCard({ data: response.data, idList }));
+        // setCards((preCards) => [...preCards, response.data]);
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(
+          cardActions.error({
+            status: true,
+            message: "error in adding card",
+          })
+        );
       });
     setOpen(false);
   };
 
   return (
-    <div style={{textAlign:"center"}}>
+    <div style={{ textAlign: "center" }}>
       <Button onClick={handleOpen}>Create card</Button>
       <Modal
         open={open}
@@ -56,7 +70,6 @@ export default function CreateCard({ idList, setCards }) {
         <Box sx={style}>
           <TextField
             InputProps={{ autoFocus: true }}
-
             onChange={(e) => setCardName(e.target.value)}
             id="filled-basic"
             label="card Name"
