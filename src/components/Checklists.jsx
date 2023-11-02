@@ -16,11 +16,13 @@ const Checklists = ({ Card, list }) => {
     (state) => state.checkList
   );
   useEffect(() => {
+    dispatch(checklistsActions.dataRequested())
     axios
       .get(
         `https://api.trello.com/1/cards/${Card.id}/checklists?key=${apiKey}&token=${token}`
       )
       .then((response) => {
+      
         dispatch(checklistsActions.fetchData(response.data));
       })
       .catch((error) => {

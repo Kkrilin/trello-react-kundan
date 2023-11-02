@@ -22,7 +22,7 @@ function ListPage() {
 
   useEffect(() => {
     document.title = boardName;
-    dispatch(listActions.fetchDataRequested());
+    // dispatch(listActions.fetchDataRequested());
     axios
       .get(
         `https://api.trello.com/1/boards/${boardId}/lists?key=${apiKey}&token=${token}`

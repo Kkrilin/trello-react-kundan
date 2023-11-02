@@ -1,4 +1,4 @@
-import { createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const checklistsState = {
   checkLists: [],
@@ -13,6 +13,9 @@ const checklistSlice = createSlice({
   name: "checklists",
   initialState: checklistsState,
   reducers: {
+    dataRequested(state) {
+      state.loading = true;
+    },
     fetchError(state, action) {
       state.loading = false;
       state.error = action.payload;

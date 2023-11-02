@@ -10,7 +10,7 @@ const token = import.meta.env.VITE_TOKEN;
 const Cards = ({ idList, list }) => {
   const dispatch = useDispatch();
   const { cards, loading, error } = useSelector((state) => state.card);
-  console.log(cards, loading, error);
+  // console.log(cards, loading, error);
   useEffect(() => {
     axios
       .get(

@@ -36,7 +36,7 @@ const Checkitem = ({ checkitem, idCard, dispatch }) => {
   const handleDeleteCheckItem = () => {
     axios
       .delete(
-        `https://api.trello.com/1/cards12/${idCard}/checkItem/${checkitem.id}?key=${apiKey}&token=${token}`
+        `https://api.trello.com/1/cards/${idCard}/checkItem/${checkitem.id}?key=${apiKey}&token=${token}`
       )
       .then((response) => {
         dispatch(checklistsActions.deleteCheckItem(checkitem));

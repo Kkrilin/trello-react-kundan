@@ -17,7 +17,6 @@ const cardSlice = createSlice({
       state.error = action.payload;
     },
     fetchCards(state, action) {
-      console.log(action);
       state.cards[action.payload.idList] = action.payload.data;
       state.loading = false;
       state.error.status = false;
@@ -25,7 +24,6 @@ const cardSlice = createSlice({
     addCard(state, action) {
       state.cards[action.payload.idList].push(action.payload.data);
       state.error.status = false;
-      // state.cards.push(action.payload);
     },
     deleteCard(state, action) {
       state.cards[action.payload.idList] = state.cards[
